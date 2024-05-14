@@ -12,14 +12,16 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class GraphParser {
-    private static final Pattern PATTERN = Pattern.compile("(\\w+\\s*)(--|->)(\\s*\\w+)\\s*(\\(\\w+\\))?(?::(\\d+))?(?:\\s*;)");
+    private static final Pattern PATTERN = Pattern.compile(
+            "(\\w+\\s*)(--|->)(\\s*\\w+)\\s*(\\(\\w+\\))?(?::(\\d+))?(?:\\s*;)");
     //TODO ASK
 
-    private static final String ABSOULTEPATHPROJECT = System.getProperty("user.dir");
-    private static final String RELATIVEOUTPUTPATH = File.separator + "Main" + File.separator + "savedGraphs" + File.separator;
+    private static final String ABSOULTE_PATH_PROJECT = System.getProperty("user.dir");
+    private static final String RELATIVE_OUTPUT_PATH = File.separator + "Main" + File.separator +
+                                                    "savedGraphs" + File.separator;
 
-    private static final String MIXEDPATH = ABSOULTEPATHPROJECT+RELATIVEOUTPUTPATH;
-    static final String path1 = File.separator + "gka_praktikum" + RELATIVEOUTPUTPATH;
+    private static final String MIXED_PATH = ABSOULTE_PATH_PROJECT+ RELATIVE_OUTPUT_PATH;
+    static final String path1 = File.separator + "gka_praktikum" + RELATIVE_OUTPUT_PATH;
     private static final String EXTENSION = ".gka";
    public static Graph parseFromFile(String path)  {
 
