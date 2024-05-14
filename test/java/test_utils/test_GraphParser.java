@@ -1,4 +1,4 @@
-package GKAP_01_test;
+package test_utils;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,15 +9,13 @@ import org.graphstream.graph.implementations.MultiGraph;
 import org.junit.jupiter.api.Test;
 
 
-import static GKAP_01.GraphParser.parseFromFile;
-import static GKAP_01.GraphParser.saveGraphToFile;
+import static utils.GraphParser.parseFromFile;
+import static utils.GraphParser.saveGraphToFile;
 import org.graphstream.graph.Graph;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

@@ -1,4 +1,4 @@
-package GKAP_01;
+package utils;
 
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
@@ -14,14 +14,19 @@ import java.util.stream.Collectors;
 public class GraphParser {
     private static final Pattern PATTERN = Pattern.compile("(\\w+\\s*)(--|->)(\\s*\\w+)\\s*(\\(\\w+\\))?(?::(\\d+))?(?:\\s*;)");
     //TODO ASK
-   // private static final String RELATIVEOUTPUTPATH;
 
+    private static final String ABSOULTEPATHPROJECT = System.getProperty("user.dir");
+    private static final String RELATIVEOUTPUTPATH = File.separator + "Main" + File.separator + "savedGraphs" + File.separator;
+
+    private static final String MIXEDPATH = ABSOULTEPATHPROJECT+RELATIVEOUTPUTPATH;
+    static final String path1 = File.separator + "gka_praktikum" + RELATIVEOUTPUTPATH;
     private static final String EXTENSION = ".gka";
    public static Graph parseFromFile(String path)  {
 
        Graph graph = new MultiGraph(extractNameFromFile(path),false, true);
        try(BufferedReader reader =  new BufferedReader(new FileReader(path))){
 
+           //Duplikate erkennen / Mehrfachkanten werden ignoriert
            Set<String> lineList = reader.lines().filter(line -> !line.isEmpty())
                    .map(line -> line.replaceAll(" ", ""))
                    .collect(Collectors.toSet());
@@ -88,9 +93,15 @@ public class GraphParser {
     }
 
     public static void main(String[] args) throws IOException {
-        Graph graph = parseFromFile("Main/resources/graph02.gka");
-        System.out.println(graph.getEdge(0).getAttribute("edgeWeight"));
-        saveGraphToFile("graph02.gka",graph, false);
+          Graph graph = parseFromFile("Main/resources/graph02.gka");
+//        System.out.println(graph.getEdge(0).getAttribute("edgeWeight"));
+//        String path = System.getProperty("user.dir")+RELATIVEOUTPUTPATH;
+        System.out.println(System.getProperty("user.dir"));
+//        System.out.println(path);
+//        System.out.println(MIXEDPATH);
+        saveGraphToFile("gaaa02",graph, false);
+
+        System.out.println(path1);
 
 
     }
@@ -112,7 +123,6 @@ public class GraphParser {
                //Attributes
                String sourceNode = edge.getSourceNode().toString();
                String targetNode = edge.getTargetNode().toString();
-               String edgeName = "(" + edge.getId() + ")";
                String weight = "";
                if(weighted) {
                    weight = ": " + edge.getAttribute("edgeWeight").toString();
@@ -120,12 +130,14 @@ public class GraphParser {
 
                if(weighted) {
                    if(edgeNames) {
+                       String edgeName = "(" + edge.getId() + ")";
                        writer.write(sourceNode + edgeDirection + targetNode + edgeName + weight + ";" + "\n");
                    } else {
                        writer.write(sourceNode + edgeDirection + targetNode + weight + ";" + "\n");
                    }
                } else {
                    if(edgeNames){
+                       String edgeName = "(" + edge.getId() + ")";
                        writer.write(sourceNode + edgeDirection + targetNode + edgeName + ";" + "\n");
                    } else {
                        writer.write(sourceNode + edgeDirection + targetNode + ";" + "\n");
