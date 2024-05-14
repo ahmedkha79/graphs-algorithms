@@ -3,7 +3,8 @@ package a1;
 
 import org.graphstream.graph.*;
 import static utils.GraphParser.parseFromFile;
-import static utils.GraphVisuals.modifyGraphVisuals;
+import static utils.GraphVisuals.setStylesheetForGraph;
+import static utils.GraphVisuals.getStyleSheet;
 import org.graphstream.ui.javafx.util.Display;
 
 public class GraphApplication {
@@ -13,7 +14,7 @@ public class GraphApplication {
     public static void main(String[] args) {
         setProperty(args[0]);
         Graph graph = parseFromFile(PATHGRAPH02);
-        modifyGraphVisuals(graph);
+        setStylesheetForGraph(graph, getStyleSheet());
         graph.display();
     }
 
