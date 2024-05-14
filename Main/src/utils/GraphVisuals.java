@@ -7,6 +7,7 @@ import java.awt.*;
 
 public class GraphVisuals {
 
+    //Visual Sheet for Graph
     private static final String STYLESHEET = "node { " +
             "size: 12px, 10px; shape: circle;" +
             "text-size: 13px;" +

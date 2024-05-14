@@ -11,6 +11,7 @@ public class GraphApplication {
 
     static final String PATHGRAPH02 =  "Main/resources/graph02.gka";
 
+
     public static void main(String[] args) {
         setProperty(args[0]);
         Graph graph = parseFromFile(PATHGRAPH02);
