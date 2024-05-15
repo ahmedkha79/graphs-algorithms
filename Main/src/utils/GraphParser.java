@@ -1,10 +1,13 @@
 package utils;
 
+
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.MultiGraph;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -94,28 +97,30 @@ public class GraphParser {
     }
 
     public static void main(String[] args) throws IOException {
-          Graph graph = parseFromFile("Main/resources/graph02.gka");
+  //       Graph graph = parseFromFile("Main/resources/graph02.gka");
 //        System.out.println(graph.getEdge(0).getAttribute("edgeWeight"));
 //        String path = System.getProperty("user.dir")+RELATIVEOUTPUTPATH;
-        System.out.println(System.getProperty("user.dir"));
+        //System.out.println(System.getProperty("user.dir"));
 //        System.out.println(path);
 //        System.out.println(MIXEDPATH);
-        saveGraphToFile("gaaa02",graph, false);
+  //      System.out.println(absolutePath);
+   //     saveGraphToFile("absolute", graph, false);
+        System.out.println(System.getProperty("user.dir"));
 
         System.out.println(path1);
     }
 
     public static void saveGraphToFile(String fileName, Graph graph, boolean edgeNames){
        String file = fileName+EXTENSION;
-       try(BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+       try(BufferedWriter writer = new BufferedWriter(new FileWriter(absolutePath + file))) {
           List<Edge> edges = graph.edges().toList(); //edges
            //consistent directions
            boolean consistentDirection = checkDirection(edges);
            if(!consistentDirection){
                throw new IllegalArgumentException("Mixed Edges in the graph");
            }
-           boolean directed = edges.getFirst().isDirected();
-           boolean weighted = edges.getFirst().hasAttribute("edgeWeight");
+           boolean directed = edges.get(0).isDirected();
+           boolean weighted = edges.get(0).hasAttribute("edgeWeight");
            String edgeDirection = (directed) ? " -> " : " -- ";
 
            for(Edge edge: edges){
@@ -162,7 +167,7 @@ public class GraphParser {
 
 
     private static String extractNameFromFile(String file){
-       Pattern pattern = Pattern.compile("(?:.*/)?(.+)");
+       Pattern pattern = Pattern.compile("(?:.*/|\\))?(.+)");
        String fileName = "";
        Matcher matcher = pattern.matcher(file);
        if(matcher.find()){

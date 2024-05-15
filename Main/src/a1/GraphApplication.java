@@ -14,6 +14,7 @@ public class GraphApplication {
     static final String PATHGRAPHNOTFOUND =  "Main/resources/testen.gka";
 
 
+
     public static void main(String[] args) {
         setProperty(args[0]);
        // String file = "Main/resources/"+(args[1])+".gka";
