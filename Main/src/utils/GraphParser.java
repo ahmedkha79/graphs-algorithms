@@ -18,44 +18,43 @@ public class GraphParser {
 
     private static final String ABSOULTE_PATH_PROJECT = System.getProperty("user.dir");
     private static final String RELATIVE_OUTPUT_PATH = File.separator + "Main" + File.separator +
-                                                    "savedGraphs" + File.separator;
+                                                        "savedGraphs" + File.separator;
 
     private static final String MIXED_PATH = ABSOULTE_PATH_PROJECT+ RELATIVE_OUTPUT_PATH;
     static final String path1 = File.separator + "gka_praktikum" + RELATIVE_OUTPUT_PATH;
     private static final String EXTENSION = ".gka";
-   public static Graph parseFromFile(String path)  {
 
-       Graph graph = new MultiGraph(extractNameFromFile(path),false, true);
-       try(BufferedReader reader =  new BufferedReader(new FileReader(path))){
+    public static Graph parseFromFile(String path)  {
 
-           //Duplikate erkennen / Mehrfachkanten werden ignoriert
-           Set<String> lineList = reader.lines().filter(line -> !line.isEmpty())
-                   .map(line -> line.replaceAll(" ", ""))
-                   .collect(Collectors.toSet());
+        Graph graph = new MultiGraph(extractNameFromFile(path),false, true);
+        try(BufferedReader reader =  new BufferedReader(new FileReader(path))){
 
-           boolean unknownDirection = true; //direction for first line unknown
-           boolean directed = false; //default is undirected graph
-           if(lineList.stream().allMatch(line -> line.matches(PATTERN.pattern()))){
-               for(String line : lineList){
+            //Duplikate erkennen / Mehrfachkanten werden ignoriert
+            Set<String> lineList = reader.lines()
+                    .filter(line -> !line.isEmpty())
+                    .map(line -> line.replaceAll(" ", ""))
+                    .collect(Collectors.toSet());
+
+            boolean unknownDirection = true; //direction for first line unknown
+            boolean directed = false; //default is undirected graph
+            if(lineList.stream().allMatch(line -> line.matches(PATTERN.pattern()))){
+                for(String line : lineList){
                     if(unknownDirection){
                         directed = line.contains("->");
                         unknownDirection = false;
                     } else if (directed != line.contains("->")) throw new IllegalArgumentException("Two different edge types used");
                     addNodes_EdgesToGraph(line, graph, directed);
-               }
+                }
+            } else {
+                throw new IllegalArgumentException("Not supported file format");
+            }
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
 
-           } else {
-               throw new IllegalArgumentException("Not supported file format");
-           }
-       }
-       catch (IOException e){
-           e.printStackTrace();
-       }
-
-
-      return graph;
-   }
-
+        return graph;
+    }
 
    private static void addNodes_EdgesToGraph(String line, Graph graph, boolean directed){
         Matcher matcher = PATTERN.matcher(line);
@@ -104,8 +103,6 @@ public class GraphParser {
         saveGraphToFile("gaaa02",graph, false);
 
         System.out.println(path1);
-
-
     }
 
     public static void saveGraphToFile(String fileName, Graph graph, boolean edgeNames){

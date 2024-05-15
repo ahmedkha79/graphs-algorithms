@@ -1,21 +1,29 @@
 package a1;
 
 
-import org.graphstream.graph.*;
+import org.graphstream.graph.Graph;
+
+
 import static utils.GraphParser.parseFromFile;
-import static utils.GraphVisuals.setStylesheetForGraph;
 import static utils.GraphVisuals.getStyleSheet;
-import org.graphstream.ui.javafx.util.Display;
+import static utils.GraphVisuals.setStylesheetForGraph;
 
 public class GraphApplication {
 
     static final String PATHGRAPH02 =  "Main/resources/graph02.gka";
+    static final String PATHGRAPHNOTFOUND =  "Main/resources/testen.gka";
+
 
     public static void main(String[] args) {
         setProperty(args[0]);
+       // String file = "Main/resources/"+(args[1])+".gka";
         Graph graph = parseFromFile(PATHGRAPH02);
         setStylesheetForGraph(graph, getStyleSheet());
+        BFS bfs = new BFS(graph);
         graph.display();
+        bfs.bfs("a", "d");
+
+
     }
 
 
