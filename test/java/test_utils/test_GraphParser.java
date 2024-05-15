@@ -1,23 +1,23 @@
 package test_utils;
 
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import a1.BFS;
 import org.graphstream.graph.Edge;
+import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
 import org.junit.jupiter.api.Test;
-
-
-import static utils.GraphParser.parseFromFile;
-import static utils.GraphParser.saveGraphToFile;
-import org.graphstream.graph.Graph;
+import utils.GraphParser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static utils.GraphParser.parseFromFile;
+import static utils.GraphParser.saveGraphToFile;
 
 public class test_GraphParser {
 
@@ -27,6 +27,9 @@ public class test_GraphParser {
     final String PATHGRAPH05 = "test_resources/graph05.gka";
 
     final String PATHGRAPH08 = "test_resources/graph08.gka";
+
+    final String PATH_NOT_FOUND = "test_resources/testen.gka";
+
 
     final String PATHDIRECTEDGRAPH01 = "test_resources/directedGraph01.gka";
     final String OUTPUTPATH = "Main/savedGraphs/";
@@ -138,7 +141,25 @@ public class test_GraphParser {
 
     }
 
+    //
+    @Test
+    public void testUngerichteteBFS(){
+        Graph graph = GraphParser.parseFromFile(PATHGRAPH02);
+        BFS testBFS = new BFS(graph);
+        assertThrows(NullPointerException.class, () -> testBFS.bfs("a", "zz"));
+    }
 
+    @Test
+    public void testUngerichteteBFSInPlace(){
+        Graph graph = GraphParser.parseFromFile(PATHGRAPH02);
+        BFS testBFS = new BFS(graph);
+        assertDoesNotThrow(() -> testBFS.bfs("a", "a"));
+    }
 
-
+    @Test
+    public void testUngerichteteBFSPathNotFound(){
+        Graph graph = GraphParser.parseFromFile(PATHGRAPH02);
+        BFS testBFS = new BFS(graph);
+        assertDoesNotThrow(() -> testBFS.bfs("a", "h"));
+    }
 }
