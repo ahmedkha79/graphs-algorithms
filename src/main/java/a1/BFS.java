@@ -113,9 +113,10 @@ public class BFS {
     private void visualizeShortestPath(List<Node> nodeList){
         for(int i = 0; i < nodeList.size()-1; i++){
             Node node = nodeList.get(i);
-            node.setAttribute("ui.style", "fill-color: blue;");
+            node.setAttribute("ui.style", "fill-color: green;");
             node.getEdgeBetween(nodeList.get(i+1)).setAttribute("ui.style", "fill-color: blue;" );
         }
+        nodeList.get(nodeList.size()-1).setAttribute("ui.style", "fill-color: green;");
     }
 
 

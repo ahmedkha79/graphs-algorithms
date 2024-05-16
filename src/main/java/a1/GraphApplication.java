@@ -24,7 +24,7 @@ public class GraphApplication {
         Graph graph = parseFromFile(path3);
         setStylesheetForGraph(graph, getStyleSheet());
         BFS bfs = new BFS(graph);
-        bfs.weightedSearch("Luebeck", "Luebeck");
+        bfs.weightedSearch("Luebeck", "Rotenburg");
         graph.display();
 
 
