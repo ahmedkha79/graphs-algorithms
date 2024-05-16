@@ -14,21 +14,17 @@ import static utils.GraphVisuals.setStylesheetForGraph;
 
 public class GraphApplication {
 
-    static final String PATHGRAPH02 =  "Main/resources/graph02.gka";
-    static final String PATHGRAPHNOTFOUND =  "Main/resources/testen.gka";
 
 
 
 
     public static void main(String[] args) throws IOException, URISyntaxException {
         setProperty(args[0]);
-        String path2 = ResourceLoader.getResourcePath("graph02.gka").toString();
-        String path3 = ResourceLoader.getResourcePath("graph03.gka").toString();
-       // String file = "Main/resources/"+(args[1])+".gka";
+        String path3 = ResourceLoader.getResourcePath(args[1]).toString();
         Graph graph = parseFromFile(path3);
         setStylesheetForGraph(graph, getStyleSheet());
         BFS bfs = new BFS(graph);
-        bfs.weightedBFS("Luebeck", "Cuxhaven");
+        bfs.weightedSearch("Luebeck", "Luebeck");
         graph.display();
 
 

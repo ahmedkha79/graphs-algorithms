@@ -25,7 +25,7 @@ public class BFS {
         edgeWeightMap = new HashMap<>();
     }
 
-    public void bfs(String start, String target){
+    public void search(String start, String target){
         Node startNode = graph.getNode(start);
         Node targetNode = graph.getNode(target);
 
@@ -45,15 +45,15 @@ public class BFS {
                 path.put(neighbor, currentNode);
             }
         }
+        printShortestPath(targetNode, false);
         if(path.containsKey(targetNode)){
-                printShortestPath(targetNode, false);
                 visualizeShortestPath(shortestPath(targetNode));
         } else {
             System.out.println("No Path found");
         }
     }
 
-    public void weightedBFS(String start, String target) {
+    public void weightedSearch(String start, String target) {
         Node startNode = graph.getNode(start);
         Node targetNode = graph.getNode(target);
 
@@ -73,7 +73,7 @@ public class BFS {
             currentNode.neighborNodes().forEach(neighbor -> {
                 Edge edge = finalCurrentNode.getEdgeBetween(neighbor);
 
-                if(!edge.hasAttribute("edgeWeight")) throw new IllegalArgumentException("Invalid Edge");
+                if(!edge.hasAttribute("edgeWeight")) throw new IllegalArgumentException("No edgeWeight on given Edge");
 
                 double edgeWeight = Double.parseDouble(edge.getAttribute("edgeWeight").toString());
                 double pathWeight = edgeWeightMap.get(finalCurrentNode) + edgeWeight;
@@ -87,10 +87,10 @@ public class BFS {
             });
 
 
-        }while(!(queue.isEmpty() || currentNode.equals(targetNode)));
+        }while(!(queue.isEmpty()));
+        printShortestPath(targetNode, true);
 
         if (path.containsKey(targetNode)){
-            printShortestPath(targetNode, true);
             visualizeShortestPath(shortestPath(targetNode));
         } else {
             System.out.println("No Shortest Path found");
@@ -98,12 +98,14 @@ public class BFS {
 
     }
 
-    private List<Node> shortestPath(Node targetNode){
+    public List<Node> shortestPath(Node targetNode){
         List<Node> nodePath = new ArrayList<>();
         Node currentNode = targetNode;
-        while(currentNode != null){
-            nodePath.addFirst(currentNode);
-            currentNode = path.get(currentNode);
+        if(path.containsKey(targetNode)) {
+            while (currentNode != null) {
+                nodePath.addFirst(currentNode);
+                currentNode = path.get(currentNode);
+            }
         }
         return nodePath;
     }
@@ -117,30 +119,30 @@ public class BFS {
     }
 
 
-    private void printShortestPath(Node targetNode, boolean weighted){
-            List<Node> nodeList = shortestPath(targetNode);
+    private void printShortestPath(Node targetNode, boolean weighted) {
+        List<Node> nodeList = shortestPath(targetNode);
+        if (!nodeList.isEmpty()) {
             StringBuilder str = new StringBuilder();
-            for (int i = 0; i < nodeList.size(); i++){
+            for (int i = 0; i < nodeList.size(); i++) {
                 str.append(String.format("%s", nodeList.get(i)));
-                if(i < nodeList.size()-1){
+                if (i < nodeList.size() - 1) {
                     str.append(" -> ");
                 }
             }
-            if(weighted){
+            if (weighted) {
                 str.append("\n");
-                for (int i = 0; i < nodeList.size()-1; i++){
+                for (int i = 0; i < nodeList.size() - 1; i++) {
                     Node node = nodeList.get(i);
-                    String weight = node.getEdgeBetween(nodeList.get(i+1)).getAttribute("edgeWeight").toString();
+                    String weight = node.getEdgeBetween(nodeList.get(i + 1)).getAttribute("edgeWeight").toString();
                     Double edgeWeight = Double.parseDouble(weight);
-                    str.append(String.format("%s -> %s: %.2f \n",nodeList.get(i), nodeList.get(i+1), edgeWeight));
+                    str.append(String.format("%s -> %s: %.2f \n", nodeList.get(i), nodeList.get(i + 1), edgeWeight));
                 }
-                str.append(String.format("Totale Weglänge von %s -> %s beträgt: %.2f",nodeList.get(0), nodeList.get(nodeList.size()-1),
+                str.append(String.format("Totale Weglänge von %s -> %s beträgt: %.2f", nodeList.get(0), nodeList.get(nodeList.size() - 1),
                         edgeWeightMap.get(targetNode)));
             }
-        System.out.println("Kürzester Pfad: " + str);
-    }
-    public Map<Node, Double> getEdgeWeightMap(){
-        return edgeWeightMap;
+            System.out.println("Kürzester Pfad: " + str);
+            System.out.printf("Anzahl benötiger Kanten: %d \n", nodeList.size() - 1);
+        }
     }
 
 //public static void bfs(Graph graph, String start, String target){

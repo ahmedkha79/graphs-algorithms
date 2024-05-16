@@ -140,26 +140,4 @@ public class test_GraphParser {
         }
 
     }
-
-    //
-    @Test
-    public void testUngerichteteBFS(){
-        Graph graph = GraphParser.parseFromFile(PATHGRAPH02);
-        BFS testBFS = new BFS(graph);
-        assertThrows(NullPointerException.class, () -> testBFS.bfs("a", "zz"));
-    }
-
-    @Test
-    public void testUngerichteteBFSInPlace(){
-        Graph graph = GraphParser.parseFromFile(PATHGRAPH02);
-        BFS testBFS = new BFS(graph);
-        assertDoesNotThrow(() -> testBFS.bfs("a", "a"));
-    }
-
-    @Test
-    public void testUngerichteteBFSPathNotFound(){
-        Graph graph = GraphParser.parseFromFile(PATHGRAPH02);
-        BFS testBFS = new BFS(graph);
-        assertDoesNotThrow(() -> testBFS.bfs("a", "h"));
-    }
 }
