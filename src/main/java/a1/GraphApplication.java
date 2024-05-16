@@ -23,11 +23,12 @@ public class GraphApplication {
     public static void main(String[] args) throws IOException, URISyntaxException {
         setProperty(args[0]);
         String path2 = ResourceLoader.getResourcePath("graph02.gka").toString();
+        String path3 = ResourceLoader.getResourcePath("graph03.gka").toString();
        // String file = "Main/resources/"+(args[1])+".gka";
-        Graph graph = parseFromFile(path2);
+        Graph graph = parseFromFile(path3);
         setStylesheetForGraph(graph, getStyleSheet());
         BFS bfs = new BFS(graph);
-        bfs.bfs("a", "d");
+        bfs.weightedBFS("Luebeck", "Cuxhaven");
         graph.display();
 
 
