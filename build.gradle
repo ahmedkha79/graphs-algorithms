@@ -2,6 +2,7 @@ apply plugin: 'application'
 
 apply plugin: 'idea'
 
+
 apply plugin: 'java'
 
 java {
@@ -15,18 +16,20 @@ configurations {
 }
 
 repositories {
-    mavenCentral() // Standardmäßig ist Maven Central Repository in Gradle enthalten
-    maven { url "https://dl.bintray.com/graphstream/gs-core" }
+    mavenCentral()
+    maven { url "https://repo1.maven.org/maven2/" }
 }
 
 dependencies {
-    implementation group: 'org.graphstream', name: 'gs-core', version: '2.0'
-    implementation group: 'org.graphstream', name: 'gs-algo', version: '2.0'
     implementation group: 'org.graphstream', name: 'gs-ui-javafx', version: '2.0'
+    implementation 'org.graphstream:gs-algo:2.0'
+    implementation group: 'org.graphstream', name: 'gs-core', version: '2.0'
     implementation group: 'org.graphstream', name: 'gs-ui-swing', version: '2.0'
+    implementation 'org.openjfx:javafx:20.0.1'
     implementation 'org.openjfx:javafx-controls:20.0.1'
     implementation 'org.openjfx:javafx-fxml:20.0.1'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
 
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
