@@ -52,12 +52,11 @@ public class Kruskal {
 
     public static void main(String[] args) throws URISyntaxException {
         String path3 = ResourceLoader.getResourcePath("graph12.gka").toString();
-        System.setProperty("org.graphstream.ui", "javafx");
-        System.setProperty("org.graphstream.debug", "true");
         Graph graph = GraphParser.parseFromFile(path3);
         Graph kruskal = kruskalAlgorithmus(graph);
-        GraphVisuals.setStylesheetForGraph(kruskal, GraphVisuals.getStyleSheet());
-        kruskal.display();
+        GraphVisuals.displayGraph("javafx", kruskal);
+
+
 
     }
 

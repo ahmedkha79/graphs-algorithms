@@ -1,9 +1,6 @@
 package utils;
 
 import org.graphstream.graph.Graph;
-import org.graphstream.graph.Node;
-
-import java.awt.*;
 
 public class GraphVisuals {
 
@@ -29,6 +26,11 @@ public class GraphVisuals {
             "}"
             ;
 
+public static void displayGraph(String property, Graph graph){
+    setProperty(property);
+    setStylesheetForGraph(graph, STYLESHEET);
+    graph.display();
+}
 
 
     public static String getStyleSheet(){
@@ -39,7 +41,19 @@ public class GraphVisuals {
         graph.setAttribute("ui.stylesheet", STYLESHEET);
     }
 
+    private static void setProperty(String visual){
 
+        switch (visual.toLowerCase()){
+            case "swing" -> {
+                System.setProperty("org.graphstream.ui", "org.graphstream.ui.swing.util.Display");
+            }
+            case "javafx" -> {
+                System.setProperty("org.graphstream.ui", "javafx");
+                System.setProperty("org.graphstream.debug", "true");
+            }default -> {
+                throw new IllegalArgumentException("Invalid or not supported visualization");}
+        }
+    }
 
 
 }
