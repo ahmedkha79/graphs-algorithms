@@ -22,7 +22,7 @@ public class GraphVisuals {
             "fill-color: red;"+
             "}" +
             "edge{" +
-            "text-size: 7px;" +
+            "text-size: 10px;" +
             "text-mode: normal;"+
             "text-alignment: along;"+
             "text-style: bold;"+
