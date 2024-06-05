@@ -19,6 +19,10 @@ import java.util.stream.Collectors;
 public class Kruskal {
     private static double sumWeight;
 
+    public static double getSumWeight() {
+        return sumWeight;
+    }
+
     public static Graph kruskalAlgorithmus(Graph graph) {
         Graph mst = new MultiGraph("mst");
         sumWeight = 0;
