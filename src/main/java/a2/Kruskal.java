@@ -5,6 +5,7 @@ import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
+import org.graphstream.graph.implementations.SingleGraph;
 import utils.GraphParser;
 import utils.GraphVisuals;
 import utils.ResourceLoader;
@@ -17,18 +18,20 @@ import java.util.stream.Collectors;
 
 
 public class Kruskal {
-    private static double sumWeight;
+    private static int sumWeight;
 
-    public static double getSumWeight() {
+    public static int getSumWeight() {
         return sumWeight;
     }
 
     public static Graph kruskalAlgorithmus(Graph graph) {
-        Graph mst = new MultiGraph("mst");
+        Graph mst = new SingleGraph("mst");
         sumWeight = 0;
 
+        if(!checkIfWeighted(graph.edges().toList())) throw new IllegalArgumentException("Edges not weighted");
+
         //Kanten werden nach Gewichten sortiert
-        List<Edge> edges = graph.edges().sorted(Comparator.comparing(edge -> edge.getNumber("edgeWeight"))).collect(Collectors.toCollection(ArrayList::new));
+        List<Edge> edges = graph.edges().sorted(Comparator.comparingDouble(edge -> edge.getNumber("edgeWeight"))).collect(Collectors.toCollection(ArrayList::new));
 
         //Füge Knoten dem minimalen Spannbaum hinzu
         graph.nodes().forEach(node -> mst.addNode(node.getId()).setAttribute("ui.label", node.getId()));
@@ -40,17 +43,26 @@ public class Kruskal {
 
         while(!edges.isEmpty() && (mst.getEdgeCount() != (mst.getNodeCount())-1)){
             Edge edge = edges.removeFirst();
+
             if(!disjointSets.inSameSet(edge.getNode0(), edge.getNode1())){
                 Edge mstEdge = mst.addEdge(edge.getId(), edge.getNode0().getId(), edge.getNode1().getId());
+
                 mstEdge.setAttribute("edgeWeight", edge.getAttribute("edgeWeight"));
                 mstEdge.setAttribute("ui.label", edge.getAttribute("edgeWeight"));
-                sumWeight += mstEdge.getNumber("edgeWeight");
+
+                sumWeight += (int) mstEdge.getNumber("edgeWeight");
                 disjointSets.union(edge.getNode0(), edge.getNode1());
             }
         }
 
         return mst;
     }
+
+    private static boolean checkIfWeighted(List<Edge> edges){
+        return edges.stream().allMatch(edge -> edge.hasAttribute("edgeWeight"));
+    }
+
+
 
 
 

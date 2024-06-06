@@ -12,8 +12,12 @@ import java.net.URISyntaxException;
 import java.util.*;
 
 public class Prim {
+
+    private static int sumWeight;
     public static Graph primAlgorithmus(Graph graph) {
         Graph geruest = new SingleGraph("geruest");
+
+        sumWeight = 0;
 
         Set<Node> besucht = new HashSet<>();
 
@@ -24,11 +28,13 @@ public class Prim {
 
         //beliebigen Knoten als Startgraph
         int randomIndex = (int) (Math.random() * allNodes.size());
-        Node startNode = graph.getNode(2);
+        Node startNode = graph.getNode(0);
 
         besucht.add(startNode);
         geruest.addNode(startNode.getId()).setAttribute("ui.label", startNode.getId());
-        edges.addAll(startNode.leavingEdges().toList());
+
+        //edges.addAll(startNode.leavingEdges().toList());
+        startNode.edges().forEach(edges::add);
 
         while (!edges.isEmpty()) {
             Edge edge = edges.poll();
@@ -40,6 +46,7 @@ public class Prim {
             if (!besucht.contains(nextNode)) {
                 geruest.addNode(nextNode.getId()).setAttribute("ui.label", nextNode.getId());
                 geruest.addEdge(edge.getId(), x.getId(), y.getId()).setAttribute("ui.label", edge.getAttribute("edgeWeight"));
+                sumWeight += (int) edge.getNumber("edgeWeight");
                 besucht.add(nextNode);
                 nextNode.leavingEdges().forEach(e -> {
                     if (!besucht.contains(e.getOpposite(nextNode))) {
@@ -50,6 +57,10 @@ public class Prim {
         }
 
         return geruest;
+    }
+
+    public static int getSumWeight(){
+        return sumWeight;
     }
     public static void main(String[] args) throws URISyntaxException {
         String path3 = ResourceLoader.getResourcePath("testen.gka").toString();
