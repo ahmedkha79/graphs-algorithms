@@ -32,7 +32,7 @@ public class GraphGenerator {
             if (node0 != node1) {
                 String edgeID = node0 < node1 ? node0 + " -- " + node1 : node1 + " -- " + node0;
                 if (edgeIDSet.add(edgeID)) {
-                    int edgeWeight = random.nextInt(max) + 1;
+                    int edgeWeight = random.nextInt(max+1);
                     graph.addEdge(edgeID, String.valueOf(node0), String.valueOf(node1))
                             .setAttribute("edgeWeight", edgeWeight);
                     graph.getEdge(edgeID).setAttribute("ui.label", String.format("%s", edgeWeight));

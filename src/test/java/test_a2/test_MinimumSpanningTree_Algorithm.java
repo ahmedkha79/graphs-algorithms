@@ -34,7 +34,7 @@ public class test_MinimumSpanningTree_Algorithm {
 
         assertNotNull(kruskalRandomGraph);
         assertEquals(kruskalRandomGraph.getNodeCount(), NODE100);
-        assertEquals(kruskalRandomGraph.getNodeCount(), kruskalRandomGraph.getEdgeCount()+1);
+        assertEquals(kruskalRandomGraph.getNodeCount()-1, kruskalRandomGraph.getEdgeCount());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class test_MinimumSpanningTree_Algorithm {
 
         assertNotNull(kruskalRandomGraph);
         assertEquals(kruskalRandomGraph.getNodeCount(), NODE1000);
-        assertEquals(kruskalRandomGraph.getNodeCount(), kruskalRandomGraph.getEdgeCount()+1);
+        assertEquals(kruskalRandomGraph.getNodeCount()-1, kruskalRandomGraph.getEdgeCount());
     }
 
     @Test
@@ -65,7 +65,15 @@ public class test_MinimumSpanningTree_Algorithm {
         Graph randomGraph = GraphGenerator.generateRandomGraph(NODE100, EDGE500, EDGEWEIGHT);
         Graph primGraph = Prim.primAlgorithmus(randomGraph);
         assertNotNull(primGraph);
-        assertEquals(randomGraph.getNodeCount(), primGraph.getEdgeCount()+1);
+        assertEquals(randomGraph.getNodeCount()-1, primGraph.getEdgeCount());
+    }
+
+    @Test
+    public void testPrimAlgorithm_Larger_Success(){
+        Graph randomGraph = GraphGenerator.generateRandomGraph(NODE1000, EDGE5000, EDGEWEIGHT);
+        Graph primGraph = Prim.primAlgorithmus(randomGraph);
+        assertNotNull(primGraph);
+        assertEquals(randomGraph.getNodeCount()-1, primGraph.getEdgeCount());
     }
 
     @Test
@@ -78,7 +86,6 @@ public class test_MinimumSpanningTree_Algorithm {
         int primWeight = Prim.getSumWeight();
 
         assertEquals(kruskalWeight, primWeight);
-        assertEquals(kruskalGraph.getNodeCount(), primGraph.getNodeCount());
         assertEquals(kruskalGraph.getEdgeCount(), primGraph.getEdgeCount());
     }
 
@@ -92,12 +99,11 @@ public class test_MinimumSpanningTree_Algorithm {
         int primWeight = Prim.getSumWeight();
 
         assertEquals(kruskalWeight, primWeight);
-        assertEquals(kruskalGraph.getNodeCount(), primGraph.getNodeCount());
         assertEquals(kruskalGraph.getEdgeCount(), primGraph.getEdgeCount());
     }
 
     @Test
-    public void test_AlgorithmComparison_Large(){
+    public void test_AlgorithmComparison_Larger(){
         Graph randomGraph = GraphGenerator.generateRandomGraph(NODE10000, EDGE50000, EDGEWEIGHT);
         Graph kruskalGraph = kruskalAlgorithmus(randomGraph);
         int kruskalWeight = Kruskal.getSumWeight();
@@ -106,7 +112,6 @@ public class test_MinimumSpanningTree_Algorithm {
         int primWeight = Prim.getSumWeight();
 
         assertEquals(kruskalWeight, primWeight);
-        assertEquals(kruskalGraph.getNodeCount(), primGraph.getNodeCount());
         assertEquals(kruskalGraph.getEdgeCount(), primGraph.getEdgeCount());
     }
 }

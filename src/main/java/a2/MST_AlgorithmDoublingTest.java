@@ -10,14 +10,13 @@ public class MST_AlgorithmDoublingTest {
         int numNodes = Integer.parseInt(args[1]);
         int numEdges = Integer.parseInt(args[2]);
         int maxWeight = Integer.parseInt(args[3]);
-        double kruskalTimes[] = new double[repeat];
-        double primTimes[] = new double[repeat];
+        double[] kruskalTimes = new double[repeat];
+        double[] primTimes = new double[repeat];
 
         Graph graph = GraphGenerator.generateRandomGraph(numNodes, numEdges, maxWeight);
         runTest(graph, 0, kruskalTimes, 1);
         runTest(graph, 0, primTimes, 2);
-        String kruskal = "Kruskal";
-        String prim = "Prim";
+
 
         for(int i = 1; i < repeat; i++){
                 numNodes += numNodes;
@@ -35,13 +34,12 @@ public class MST_AlgorithmDoublingTest {
     }
 
     private static void runTest(Graph graph, int time, double[] times, int type){
-        Graph algorithmGraph;
 
         double start = System.currentTimeMillis();
         if(type == 1){
-            algorithmGraph = Kruskal.kruskalAlgorithmus(graph);
+            Kruskal.kruskalAlgorithmus(graph);
         } else if(type == 2){
-            algorithmGraph = Prim.primAlgorithmus(graph);
+           Prim.primAlgorithmus(graph);
         } else {
             throw new IllegalArgumentException("Unknown algorithm");
         }

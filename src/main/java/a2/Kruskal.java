@@ -25,10 +25,9 @@ public class Kruskal {
     }
 
     public static Graph kruskalAlgorithmus(Graph graph) {
+        if(!checkIfWeighted(graph.edges().toList())) throw new IllegalArgumentException("Edges not weighted");
         Graph mst = new SingleGraph("mst");
         sumWeight = 0;
-
-        if(!checkIfWeighted(graph.edges().toList())) throw new IllegalArgumentException("Edges not weighted");
 
         //Kanten werden nach Gewichten sortiert
         List<Edge> edges = graph.edges().sorted(Comparator.comparingDouble(edge -> edge.getNumber("edgeWeight"))).collect(Collectors.toCollection(ArrayList::new));
@@ -41,7 +40,7 @@ public class Kruskal {
 
         graph.nodes().forEach(disjointSets::add);
 
-        while(!edges.isEmpty() && (mst.getEdgeCount() != (mst.getNodeCount())-1)){
+        while(!edges.isEmpty() && (mst.getEdgeCount() != mst.getNodeCount()-1)){
             Edge edge = edges.removeFirst();
 
             if(!disjointSets.inSameSet(edge.getNode0(), edge.getNode1())){
