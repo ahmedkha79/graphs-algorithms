@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 public class BFS {
     private Graph graph;
-
     private Queue<Node> queue;
     private Set<Node> visited;
     private Map<Node, Node> path;
