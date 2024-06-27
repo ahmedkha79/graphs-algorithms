@@ -39,7 +39,7 @@ public class test_BFS {
     @Test
     public void test_UndirectedBFSWrongTargetNode(){
         BFS testBFS = new BFS(graph02);
-        assertThrows(NullPointerException.class, () -> testBFS.search("a", "zz"));
+        assertFalse(testBFS.search("a", "zz"));
     }
 
     @Test
