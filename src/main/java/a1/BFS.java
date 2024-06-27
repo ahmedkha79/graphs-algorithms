@@ -24,7 +24,7 @@ public class BFS {
         edgeWeightMap = new HashMap<>();
     }
 
-    public void search(String start, String target){
+    public boolean search(String start, String target){
         Node startNode = graph.getNode(start);
         Node targetNode = graph.getNode(target);
 
@@ -32,8 +32,9 @@ public class BFS {
         visited.add(startNode);
         path.put(startNode, null);
 
-            while (!(queue.isEmpty() && path.containsKey(targetNode))){
+            while (!queue.isEmpty() && !path.containsKey(targetNode)){
             Node currentNode = queue.poll();
+
             List<Node> neighbors = currentNode
                     .neighborNodes()
                     .filter(node -> !visited.contains(node))
@@ -44,11 +45,14 @@ public class BFS {
                 path.put(neighbor, currentNode);
             }
         }
-        printShortestPath(targetNode, false);
+        //printShortestPath(targetNode, false);
         if(path.containsKey(targetNode)){
-                visualizeShortestPath(shortestPath(targetNode));
+
+                //visualizeShortestPath(shortestPath(targetNode));
+                return true;
         } else {
-            System.out.println("No Path found");
+            //System.out.println("No Path found");
+            return false;
         }
     }
 

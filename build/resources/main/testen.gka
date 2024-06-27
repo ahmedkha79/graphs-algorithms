@@ -1,12 +1,9 @@
-a -- b;
-a -- e;
-a -- h;
 b -- c;
-b -- e;
-h -- i;
-i -- d;
+b -- d;
+c -- e;
+d -- f;
 e -- f;
 f -- g;
-g -- d;
-c -- d;
-z;
+f -- i;
+i -- h;
+g -- h;

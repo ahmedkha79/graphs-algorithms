@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_utils.test_GraphParser" tests="13" skipped="0" failures="0" errors="0" timestamp="2024-05-15T23:07:16" hostname="LAPTOP-KIL8U434" time="0.12">
+<testsuite name="test_utils.test_GraphParser" tests="10" skipped="0" failures="0" errors="0" timestamp="2024-06-27T20:30:42" hostname="LAPTOP-KIL8U434" time="0.067">
   <properties/>
-  <testcase name="testParseCorruptedGraph01()" classname="test_utils.test_GraphParser" time="0.026"/>
-  <testcase name="saveGraph02_checkFormat()" classname="test_utils.test_GraphParser" time="0.032"/>
-  <testcase name="testUngerichteteBFSPathNotFound()" classname="test_utils.test_GraphParser" time="0.008"/>
-  <testcase name="saveGraphMixedDirections()" classname="test_utils.test_GraphParser" time="0.001"/>
-  <testcase name="testUngerichteteBFS()" classname="test_utils.test_GraphParser" time="0.004"/>
+  <testcase name="testParseCorruptedGraph01()" classname="test_utils.test_GraphParser" time="0.004"/>
+  <testcase name="saveGraph02_checkFormat()" classname="test_utils.test_GraphParser" time="0.012"/>
+  <testcase name="saveGraphMixedDirections()" classname="test_utils.test_GraphParser" time="0.002"/>
   <testcase name="testParseGraph02()" classname="test_utils.test_GraphParser" time="0.003"/>
-  <testcase name="testParseGraph05()" classname="test_utils.test_GraphParser" time="0.002"/>
+  <testcase name="testParseGraph05()" classname="test_utils.test_GraphParser" time="0.003"/>
   <testcase name="testParseGraph08()" classname="test_utils.test_GraphParser" time="0.002"/>
-  <testcase name="testReadFile()" classname="test_utils.test_GraphParser" time="0.004"/>
-  <testcase name="testGraphId()" classname="test_utils.test_GraphParser" time="0.002"/>
-  <testcase name="testParseDirectedGraph01()" classname="test_utils.test_GraphParser" time="0.003"/>
-  <testcase name="testUngerichteteBFSInPlace()" classname="test_utils.test_GraphParser" time="0.003"/>
-  <testcase name="saveGraphWithAllAttributes()" classname="test_utils.test_GraphParser" time="0.007"/>
-  <system-out><![CDATA[ a c h
- a
-]]></system-out>
+  <testcase name="testReadFile()" classname="test_utils.test_GraphParser" time="0.003"/>
+  <testcase name="testGraphId()" classname="test_utils.test_GraphParser" time="0.005"/>
+  <testcase name="testParseDirectedGraph01()" classname="test_utils.test_GraphParser" time="0.002"/>
+  <testcase name="saveGraphWithAllAttributes()" classname="test_utils.test_GraphParser" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

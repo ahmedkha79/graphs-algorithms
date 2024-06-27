@@ -3,6 +3,6 @@
 /gradle/
 /.idea/
 /.gradle/
-*.xml
-*.gitignore
-/.idea/libraries
+*.html
+.*lock
+.*class
