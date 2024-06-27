@@ -2,6 +2,7 @@ package a3;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
+import org.graphstream.graph.implementations.Graphs;
 import org.graphstream.graph.implementations.MultiGraph;
 import org.graphstream.graph.implementations.SingleGraph;
 import utils.EulerGraphGenerator;
@@ -23,16 +24,7 @@ public class Hierholzer {
             return null;
         }
 
-        Graph copiedGraph = new MultiGraph("CopiedGraph");
-        for (Node node : graph){
-            copiedGraph.addNode(node.getId());
-        }
-
-        for (Edge edge : graph.edges().toList()){
-            String sourceId = edge.getSourceNode().getId();
-            String targetId = edge.getTargetNode().getId();
-            copiedGraph.addEdge(edge.getId(), sourceId, targetId);
-        }
+        Graph copiedGraph = Graphs.clone(graph);
 
         List<String> eulerKreis = new ArrayList<>();
         Stack<Node> stack = new Stack<>();
@@ -72,10 +64,11 @@ public class Hierholzer {
         String path3 = ResourceLoader.getResourcePath("testen.gka").toString();
         Graph graph = EulerGraphGenerator.createEulerGraph(10);
         GraphVisuals.displayGraph("javafx", graph);
-        List<String> hierholzer =  findeEulerkreis(graph);
+        List<String> hierholzer = findeEulerkreis(graph);
         List<Edge> fleuryEdges = Fleury.searchEulerTour(graph);
         System.out.println(hierholzer.size());
         System.out.println(fleuryEdges.size());
+
 
     }
 }
