@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_utils.test_GraphParser" tests="10" skipped="0" failures="0" errors="0" timestamp="2024-06-27T01:12:23" hostname="LAPTOP-KIL8U434" time="0.056">
+<testsuite name="test_utils.test_GraphParser" tests="10" skipped="0" failures="0" errors="0" timestamp="2024-06-27T20:39:21" hostname="LAPTOP-KIL8U434" time="0.067">
   <properties/>
-  <testcase name="testParseCorruptedGraph01()" classname="test_utils.test_GraphParser" time="0.002"/>
-  <testcase name="saveGraph02_checkFormat()" classname="test_utils.test_GraphParser" time="0.01"/>
-  <testcase name="saveGraphMixedDirections()" classname="test_utils.test_GraphParser" time="0.004"/>
+  <testcase name="testParseCorruptedGraph01()" classname="test_utils.test_GraphParser" time="0.004"/>
+  <testcase name="saveGraph02_checkFormat()" classname="test_utils.test_GraphParser" time="0.008"/>
+  <testcase name="saveGraphMixedDirections()" classname="test_utils.test_GraphParser" time="0.002"/>
   <testcase name="testParseGraph02()" classname="test_utils.test_GraphParser" time="0.003"/>
   <testcase name="testParseGraph05()" classname="test_utils.test_GraphParser" time="0.002"/>
-  <testcase name="testParseGraph08()" classname="test_utils.test_GraphParser" time="0.002"/>
-  <testcase name="testReadFile()" classname="test_utils.test_GraphParser" time="0.004"/>
+  <testcase name="testParseGraph08()" classname="test_utils.test_GraphParser" time="0.003"/>
+  <testcase name="testReadFile()" classname="test_utils.test_GraphParser" time="0.003"/>
   <testcase name="testGraphId()" classname="test_utils.test_GraphParser" time="0.003"/>
   <testcase name="testParseDirectedGraph01()" classname="test_utils.test_GraphParser" time="0.002"/>
-  <testcase name="saveGraphWithAllAttributes()" classname="test_utils.test_GraphParser" time="0.011"/>
+  <testcase name="saveGraphWithAllAttributes()" classname="test_utils.test_GraphParser" time="0.017"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
