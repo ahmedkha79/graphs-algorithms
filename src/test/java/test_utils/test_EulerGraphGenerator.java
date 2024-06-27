@@ -3,7 +3,7 @@ package test_utils;
 import a1.BFS;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import utils.EulerGraphGenerator;
 import utils.GraphParser;
 import utils.GraphVisuals;
@@ -30,15 +30,25 @@ public class test_EulerGraphGenerator {
     }
 
     @Test
-    public void test_checkForSmallGraph() throws URISyntaxException {
+    public void test_checkForSmallGraph_Success() throws URISyntaxException {
         Graph eulerGraph = GraphParser.parseFromFile(ResourceLoader.getResourcePath("eulerianGraph.gka").toString());
         assertTrue(checkIsEulerianGraph(eulerGraph));
     }
 
     @Test
+    public void test_checkForNonEulerianGraph_Fail(){
+        try {
+            Graph eulerGraph = GraphParser.parseFromFile(ResourceLoader.getResourcePath("nonEulerianGraph.gka").toString());
+            assertFalse(checkIsEulerianGraph(eulerGraph));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void test_EulerGraph(){
         Graph eulerGraph = EulerGraphGenerator.createEulerGraph(100);
-        assertEquals(10, eulerGraph.getNodeCount());
+        assertEquals(100, eulerGraph.getNodeCount());
         assertTrue(checkIsEulerianGraph(eulerGraph));
 
     }

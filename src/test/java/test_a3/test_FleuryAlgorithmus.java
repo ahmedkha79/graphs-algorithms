@@ -6,7 +6,6 @@ import org.graphstream.graph.Graph;
 import org.junit.jupiter.api.Test;
 import utils.EulerGraphGenerator;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
