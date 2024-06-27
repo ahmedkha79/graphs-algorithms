@@ -2,62 +2,64 @@ package a3;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
+import org.graphstream.graph.implementations.MultiGraph;
 import org.graphstream.graph.implementations.SingleGraph;
+import utils.EulerGraphGenerator;
 import utils.GraphParser;
 import utils.GraphVisuals;
 import utils.ResourceLoader;
 
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Hierholzer {
 
 
-    public List<String> findeEulerkreis(Graph graph) {
-        // Überprüfe, ob der Graph einen Eulerkreis haben kann
+    public static List<String> findeEulerkreis(Graph graph) {
+
         if (!checkEulerian(graph)) {
-            System.err.println("Der Graph hat keine Eulerkreis, da mindestens ein Knoten eine ungerade Anzahl von Kanten hat.");
+            System.err.println("Der Graph hat keinen Eulerkreis, da mindestens ein Knoten eine ungerade Anzahl von Kanten hat.");
             return null;
         }
 
-        List<String> eulerKreis = new ArrayList<>();
-        Map<String, LinkedList<String>> edges = new HashMap<>();
-        LinkedList<String> tour = new LinkedList<>();
-
-        // Kopiere die Kanten des Graphen, um sie später zu entfernen
-        for (Node node : graph) {
-            LinkedList<String> adjacentNodes = node.leavingEdges()
-                    .map(edge -> edge.getOpposite(node).getId())
-                    .collect(Collectors.toCollection(LinkedList::new));
-            edges.put(node.getId(), adjacentNodes);
+        Graph copiedGraph = new MultiGraph("CopiedGraph");
+        for (Node node : graph){
+            copiedGraph.addNode(node.getId());
         }
 
-        // Wähle einen Startknoten
-        String startNode = graph.getNode(0).getId();
-        tour.add(startNode);
+        for (Edge edge : graph.edges().toList()){
+            String sourceId = edge.getSourceNode().getId();
+            String targetId = edge.getTargetNode().getId();
+            copiedGraph.addEdge(edge.getId(), sourceId, targetId);
+        }
 
-        while (!tour.isEmpty()) {
-            String v = tour.getLast();
-            if (!edges.get(v).isEmpty()) {
-                String w = edges.get(v).removeFirst();
-                edges.get(w).remove(v); // Entferne die rückwärtsgerichtete Kante
-                tour.add(w);
+        List<String> eulerKreis = new ArrayList<>();
+        Stack<Node> stack = new Stack<>();
+        Node startNode = copiedGraph.getNode(0);
+        stack.push(startNode);
+
+        while (!stack.isEmpty()) {
+            Node currentNode = stack.peek();
+            if (currentNode.getDegree() > 0) {
+                // Wähle eine benachbarte Kante
+                Edge edge = currentNode.getEdge(0);
+                Node neighbor = edge.getOpposite(currentNode);
+                // Entferne Kante aus dem Graphen
+                copiedGraph.removeEdge(edge);
+                // Füge Nachbarknoten zum Stack hinzu
+                stack.push(neighbor);
             } else {
-                eulerKreis.add(tour.removeLast());
+                // Keine benachbarten Knoten mehr, füge zum Kreis hinzu
+                eulerKreis.add(currentNode.getId());
+                stack.pop();
             }
         }
-
-        // Drucke den gefundenen Eulerkreis
         System.out.println("Eulerkreis: " + eulerKreis);
         return eulerKreis;
     }
 
-    private boolean checkEulerian(Graph graph) {
+    private static boolean checkEulerian(Graph graph) {
         for (Node node : graph) {
             if (node.getDegree() % 2 != 0) {
                 return false;
@@ -68,10 +70,12 @@ public class Hierholzer {
 
     public static void main(String[] args) throws URISyntaxException {
         String path3 = ResourceLoader.getResourcePath("testen.gka").toString();
-        Graph graph = GraphParser.parseFromFile(path3);
-        Hierholzer h = new Hierholzer();
-        h.findeEulerkreis(graph);
+        Graph graph = EulerGraphGenerator.createEulerGraph(10);
         GraphVisuals.displayGraph("javafx", graph);
+        List<String> hierholzer =  findeEulerkreis(graph);
+        List<Edge> fleuryEdges = Fleury.searchEulerTour(graph);
+        System.out.println(hierholzer.size());
+        System.out.println(fleuryEdges.size());
 
     }
 }
